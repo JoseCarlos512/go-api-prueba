@@ -1,26 +1,16 @@
-// main.go
-
 package main
 
 import (
-    "log"
+	"go-api-prueba/app/handlers"
+	"log"
 
-    "github.com/gofiber/fiber/v2"
-    "go-api-prueba/configs"
-    "go-api-prueba/app/handlers"
+	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-    // Cargar configuración
-    config := configs.LoadConfig()
+	app := fiber.New()
 
-    // Inicializar aplicación Fiber
-    app := fiber.New()
+	app.Post("/qr-factorization", handlers.QRFactorizationHandler)
 
-    // Rutas
-    app.Post("/rotate-matrix", handlers.RotateMatrixHandler)
-
-    // Escuchar en el puerto especificado en la configuración
-    log.Printf("Servidor iniciado en el puerto %s", config.Port)
-    log.Fatal(app.Listen(":" + config.Port))
+	log.Fatal(app.Listen(":3100"))
 }
