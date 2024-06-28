@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  go-api:
+    build: .
+    ports:
+      - "3000:3000"
+    networks:
+      - go-node-network
+
+networks:
+  go-node-network:
+    driver: bridge
