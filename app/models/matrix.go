@@ -10,6 +10,17 @@ type RotatedMatrixOutput struct {
 	RotatedMatrix [][]float64 `json:"rotatedMatrix"`
 }
 
+// QRDecompositionOutput representa la estructura de la factorización QR
+type QRDecompositionOutput struct {
+	Q [][]float64 `json:"Q"`
+	R [][]float64 `json:"R"`
+}
+
+type QRStatsResponse struct {
+	Q StatsResponse `json:"Q"`
+	R StatsResponse `json:"R"`
+}
+
 // StatsResponse representa la respuesta de la API de Node.js
 type StatsResponse struct {
 	Max        float64 `json:"max"`

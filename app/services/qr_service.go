@@ -1,8 +1,10 @@
 package services
 
 import (
-	"gonum.org/v1/gonum/mat"
 	"encoding/json"
+	"fmt"
+
+	"gonum.org/v1/gonum/mat"
 )
 
 // RotateMatrix rota la matriz 90 grados en sentido horario
@@ -31,8 +33,10 @@ func QRFactorization(matrix [][]float64) (Q, R json.RawMessage, err error) {
 	var qr mat.QR
 	qr.Factorize(m)
 
-	Qmat := mat.NewDense(0, 0, nil)
-	Rmat := mat.NewDense(0, 0, nil)
+	rows, cols := m.Dims()
+
+	Qmat := mat.NewDense(rows, rows, nil)
+	Rmat := mat.NewDense(rows, cols, nil)
 	qr.QTo(Qmat)
 	qr.RTo(Rmat)
 
@@ -59,5 +63,10 @@ func matrixToJSON(m mat.Matrix) (json.RawMessage, error) {
 			data[i][j] = m.At(i, j)
 		}
 	}
-	return json.Marshal(data)
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		fmt.Printf("Error marshaling matrix to JSON: %v\n", err)
+		return nil, err
+	}
+	return jsonData, nil
 }
