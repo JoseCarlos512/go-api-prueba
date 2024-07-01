@@ -8,7 +8,7 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-// SendRotatedMatrix envía la matriz rotada a la API de Node.js y recibe las estadísticas
+// Envía la matriz rotada a la API de Node y recibe las estadísticas
 func SendRotatedMatrix(rotatedMatrix [][]float64) (*models.StatsResponse, error) {
 	client := resty.New()
 	resp, err := client.R().
@@ -29,7 +29,7 @@ func SendRotatedMatrix(rotatedMatrix [][]float64) (*models.StatsResponse, error)
 	return &stats, nil
 }
 
-// SendQRDecomposition envía las matrices Q y R a la API de Node.js y recibe las estadísticas
+// Envía las matrices Q y R a la API de Node y recibe las estadísticas
 func SendQRDecomposition(Q, R json.RawMessage) (*models.QRStatsResponse, error) {
 
 	var QMatrix, RMatrix [][]float64

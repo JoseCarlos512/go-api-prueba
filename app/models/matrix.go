@@ -1,27 +1,28 @@
 package models
 
-// MatrixInput representa la estructura de la entrada
+// Estructura matriz de entrada
 type MatrixInput struct {
 	Matrix [][]float64 `json:"matrix"`
 }
 
-// RotatedMatrixOutput representa la estructura de la matriz rotada
+// Estructura matriz rotada
 type RotatedMatrixOutput struct {
 	RotatedMatrix [][]float64 `json:"rotatedMatrix"`
 }
 
-// QRDecompositionOutput representa la estructura de la factorización QR
+// Estructura factorización QR
 type QRDecompositionOutput struct {
 	Q [][]float64 `json:"Q"`
 	R [][]float64 `json:"R"`
 }
 
+// Estructura QRStatsResponse representa la respuesta de la API de Node
 type QRStatsResponse struct {
 	Q StatsResponse `json:"Q"`
 	R StatsResponse `json:"R"`
 }
 
-// StatsResponse representa la respuesta de la API de Node.js
+// Estructura Estadisticas
 type StatsResponse struct {
 	Max        float64 `json:"max"`
 	Min        float64 `json:"min"`

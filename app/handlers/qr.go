@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"go-api-prueba/app/models"
 	"go-api-prueba/app/services"
 	"go-api-prueba/app/utils"
@@ -10,7 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// RotateMatrixHandler maneja la rotación de la matriz
+// Metodo encargado de la rotación de la matriz
 func RotateMatrixHandler(c *fiber.Ctx) error {
 	var input models.MatrixInput
 
@@ -21,7 +20,7 @@ func RotateMatrixHandler(c *fiber.Ctx) error {
 	// Realizar rotación de la matriz
 	rotatedMatrix := services.RotateMatrix(input.Matrix)
 
-	// Enviar matriz rotada a la API de Node.js
+	// Enviar matriz rotada a la API Node
 	stats, err := utils.SendRotatedMatrix(rotatedMatrix)
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).SendString(err.Error())
@@ -35,7 +34,7 @@ func RotateMatrixHandler(c *fiber.Ctx) error {
 	return c.JSON(result)
 }
 
-// QRFactorizationHandler maneja la factorización QR
+// Metodo encargado de la factorización QR
 func QRFactorizationHandler(c *fiber.Ctx) error {
 	var input models.MatrixInput
 
@@ -47,19 +46,20 @@ func QRFactorizationHandler(c *fiber.Ctx) error {
 	if len(input.Matrix) == 0 || len(input.Matrix[0]) == 0 {
 		return c.Status(http.StatusBadRequest).SendString("La matriz de entrada tiene dimensiones inválidas")
 	}
-	fmt.Print(input.Matrix)
+
 	// Realizar factorización QR
 	Q, R, err := services.QRFactorization(input.Matrix)
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).SendString(err.Error())
 	}
 
-	// Enviar matrices Q y R a la API de Node.js
+	// Enviar matrices Q y R a la API de Node
 	stats, err := utils.SendQRDecomposition(Q, R)
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).SendString(err.Error())
 	}
 
+	// formato establecido
 	result := fiber.Map{
 		"Q":     Q,
 		"R":     R,
